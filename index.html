@@ -1,11 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>portfolio</title>
+ <meta charset="UTF-8">
+ <title>Jogo de Adivinhação</title>
+ <style>
+   body {
+     font-family: Arial, sans-serif;
+     text-align: center;
+     margin-top: 100px;
+   }
+
+
+   input, button {
+     font-size: 18px;
+     padding: 10px;
+   }
+
+
+   #mensagem {
+     margin-top: 20px;
+     font-weight: bold;
+   }
+ </style>
 </head>
 <body>
-    <h1>vitoria cristina alves rodrigues</h1>
+
+
+ <h1>🎯 Jogo de Adivinhação</h1>
+ <p>Digite um número entre 1 e 10</p>
+
+
+ <input type="number" id="palpite" min="1" max="10" />
+ <button id="enviar">Enviar</button>
+
+
+ <div id="mensagem"></div>
+
+
+ <script>
+   const numeroSecreto = Math.floor(Math.random() * 10) + 1;
+   let tentativas = 0;
+
+
+   const input = document.getElementById("palpite");
+   const botao = document.getElementById("enviar");
+   const mensagem = document.getElementById("mensagem");
+
+
+   botao.addEventListener("click", () => {
+     const palpite = Number(input.value);
+
+
+     if (palpite < 1 || palpite > 10) {
+       mensagem.textContent = "Por favor, digite um número entre 1 e 10.";
+       return;
+     }
+
+
+     tentativas++;
+
+
+     if (palpite === numeroSecreto) {
+       mensagem.textContent = "🎉 Parabéns! Você acertou!";
+       botao.disabled = true;
+     } else {
+       if (tentativas >= 3) {
+         mensagem.textContent = `❌ Você perdeu! O número era ${numeroSecreto}.`;
+         botao.disabled = true;
+       } else {
+         mensagem.textContent = `Errou! Você ainda tem ${3 - tentativas} tentativa(s).`;
+       }
+     }
+
+
+     input.value = "";
+     input.focus();
+   });
+ </script>
+
+
 </body>
 </html>
+
+
